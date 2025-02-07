@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="738.0" prefWidth="808.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="Controllers.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="727.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PantallaAlumnosController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <TableView fx:id="t_alumnos" layoutX="34.0" layoutY="129.0" prefHeight="313.0" prefWidth="742.0">
@@ -72,12 +72,12 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="b_update" layoutX="630.0" layoutY="558.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="145.0" text="ACTUALIZAR">
+      <Button fx:id="b_update" layoutX="630.0" layoutY="550.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="145.0" text="ACTUALIZAR">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="b_delete" layoutX="630.0" layoutY="641.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="145.0" text="ELIMINAR">
+      <Button fx:id="b_delete" layoutX="630.0" layoutY="619.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="145.0" text="ELIMINAR">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -100,7 +100,7 @@
          </font>
       </Label>
       <DatePicker fx:id="dp_fecha" layoutX="396.0" layoutY="593.0" prefHeight="25.0" prefWidth="162.0" />
-      <Button fx:id="b_empty" layoutX="170.0" layoutY="662.0" mnemonicParsing="false" onMouseClicked="#vaciarDatos" prefHeight="36.0" prefWidth="305.0" text="VACIAR DATOS">
+      <Button fx:id="b_empty" layoutX="157.0" layoutY="651.0" mnemonicParsing="false" onMouseClicked="#vaciarDatos" prefHeight="43.0" prefWidth="330.0" text="VACIAR VALORES">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
