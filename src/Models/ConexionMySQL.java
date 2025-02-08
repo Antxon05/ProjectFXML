@@ -18,7 +18,6 @@ class ConexionMySQL {
     private String user;
     private String password;
     private ResultSet resultSet;
-    private Statement statement;
 
     public ConexionMySQL(String host, String database, String user, String password) {
         this.host = host;
@@ -36,7 +35,6 @@ class ConexionMySQL {
             
             String url = "jdbc:mysql://" + host + "/" + database + "?serverTimezone=UTC";
             connection = DriverManager.getConnection(url, user, password);
-            statement = connection.createStatement();
             
             System.out.println("Se ha establecido la conexión");
         }catch(Exception e){
@@ -44,8 +42,12 @@ class ConexionMySQL {
         }
     }
     
+    public Connection getConnection(){
+        return connection;
+    }
     
     
+    /*
     public ResultSet ejecutarConsulta(String consulta){
         try{
             return statement.executeQuery(consulta);
@@ -54,14 +56,15 @@ class ConexionMySQL {
             return null;
         }
     }
+*/
     
     
     
     public void cerrarConexion(){
         try{
             
-        if (statement != null) statement.close();
-        if (connection != null) connection.close();
+            if (connection != null) connection.close();
+            System.out.println("Conexión cerrada.");
             
         }catch(Exception e){
             e.printStackTrace();

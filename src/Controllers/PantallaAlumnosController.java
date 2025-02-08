@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -28,7 +29,8 @@ import javafx.scene.input.MouseEvent;
  */
 public class PantallaAlumnosController implements Initializable {
     
-    private static ObservableList<Alumno> alumnos = FXCollections.observableArrayList();
+    private ObservableList<Alumno> alumnos = FXCollections.observableArrayList();
+    private ObservableList<String> nombres = FXCollections.observableArrayList();
     
     
     @FXML
@@ -76,6 +78,12 @@ public class PantallaAlumnosController implements Initializable {
     @FXML
     private TextField tf_tlf;
     
+    @FXML
+    private ComboBox<String> cb_apellido;
+
+    @FXML
+    private ComboBox<String> cb_nombre;
+    
     
     @FXML
     private void vaciarDatos(MouseEvent e){
@@ -90,27 +98,60 @@ public class PantallaAlumnosController implements Initializable {
     @FXML
     private void addAlumno(MouseEvent e){
         
+        Alumno alumno = new Alumno();
+        
+        String nombre = tf_nombre.getText();
+        String apellido = tf_apellido.getText();
+        String correo = tf_correo.getText();
+        Integer telefono = Integer.parseInt(tf_tlf.getText());
+        LocalDate fecha = dp_fecha.getValue();
+        
+        alumno.añadirAlumno(nombre, apellido, correo, telefono, fecha);
         
         
-        
+        actualizarTabla();
     }
+    
+    @FXML
+    private void updateAlumno(MouseEvent e){
+        
+        Alumno alumno = new Alumno();
+        
+        String nombre = tf_nombre.getText();
+        String apellido = tf_apellido.getText();
+        String correo = tf_correo.getText();
+        Integer telefono = Integer.parseInt(tf_tlf.getText());
+        LocalDate fecha = dp_fecha.getValue();
+        
+        alumno.updateAlumno(nombre, apellido, correo, telefono, fecha);
+        
+        actualizarTabla();
+    }
+    
+    
+    @FXML
+    private void deleteAlumno(MouseEvent e){
+        
+        Alumno alumno = new Alumno();
+        
+        String correo = tf_correo.getText();
+        
+        alumno.eliminarAlumno(correo);
+        
+        actualizarTabla();
+        
+        vaciarDatos(e);
+    }
+    
     
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Alumno a = new Alumno();
         
+        actualizarTabla();
         
-        c_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        c_apellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
-        c_correo.setCellValueFactory(new PropertyValueFactory<>("correo"));
-        c_tlf.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-        c_fecha.setCellValueFactory(new PropertyValueFactory<>("fechaRegistro"));
-        
-        alumnos = a.getAlumnos();
-        
-        t_alumnos.setItems(alumnos);
+        actualizarComboBoxes();
         
         t_alumnos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
         
@@ -118,12 +159,9 @@ public class PantallaAlumnosController implements Initializable {
         
         });
         
-       
-        
-    }    
-    
-    
-    
+    }
+
+
     public void seleccionarFila(){
         Alumno aSeleccionado = t_alumnos.getSelectionModel().getSelectedItem();
         
@@ -136,7 +174,31 @@ public class PantallaAlumnosController implements Initializable {
             dp_fecha.setValue(aSeleccionado.getFechaRegistro());
             
         }
-        
     }
+    
+    
+    public void actualizarTabla(){
+        
+        Alumno a = new Alumno();
+        
+        c_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        c_apellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
+        c_correo.setCellValueFactory(new PropertyValueFactory<>("correo"));
+        c_tlf.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+        c_fecha.setCellValueFactory(new PropertyValueFactory<>("fechaRegistro"));
+        
+        
+        alumnos = a.getAlumnos();
+        
+        t_alumnos.setItems(alumnos);
+    }
+    
+    public void actualizarComboBoxes(){
+        Alumno a = new Alumno();
+        
+        cb_nombre.setItems(a.mostrarNombres());
+        cb_apellido.setItems(a.mostrarApellidos());
+    }
+    
     
 }
