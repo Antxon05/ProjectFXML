@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="727.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PantallaAlumnosController">
+<AnchorPane id="AnchorPane" prefHeight="727.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PantallaAlumnosController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <TableView fx:id="t_alumnos" layoutX="34.0" layoutY="129.0" prefHeight="313.0" prefWidth="742.0">
@@ -67,28 +67,28 @@
             <Font size="13.0" />
          </font>
       </TextField>
-      <Button fx:id="b_add" layoutX="630.0" layoutY="476.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="145.0" text="AÑADIR">
+      <Button fx:id="b_add" layoutX="630.0" layoutY="476.0" mnemonicParsing="false" onMouseClicked="#addAlumno" prefHeight="43.0" prefWidth="145.0" text="AÑADIR">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="b_update" layoutX="630.0" layoutY="550.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="145.0" text="ACTUALIZAR">
+      <Button fx:id="b_update" layoutX="630.0" layoutY="550.0" mnemonicParsing="false" onMouseClicked="#updateAlumno" prefHeight="43.0" prefWidth="145.0" text="ACTUALIZAR">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="b_delete" layoutX="630.0" layoutY="619.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="145.0" text="ELIMINAR">
+      <Button fx:id="b_delete" layoutX="630.0" layoutY="619.0" mnemonicParsing="false" onMouseClicked="#deleteAlumno" prefHeight="43.0" prefWidth="145.0" text="ELIMINAR">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <ComboBox layoutX="153.0" layoutY="65.0" prefWidth="150.0" />
+      <ComboBox fx:id="cb_nombre" layoutX="153.0" layoutY="65.0" prefWidth="150.0" />
       <Label layoutX="64.0" layoutY="65.0" prefHeight="25.0" prefWidth="69.0" text="Buscar:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ComboBox layoutX="333.0" layoutY="65.0" prefWidth="150.0" />
+      <ComboBox fx:id="cb_apellido" layoutX="333.0" layoutY="65.0" prefWidth="150.0" />
       <Label layoutX="203.0" layoutY="39.0" text="Nombre">
          <font>
             <Font name="System Bold" size="13.0" />
