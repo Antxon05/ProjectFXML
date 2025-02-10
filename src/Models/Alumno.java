@@ -189,13 +189,12 @@ public class Alumno {
     }
     
     
-    public void añadirAlumno(String nombre, String apellido, String correo, Integer telefono, LocalDate fecha){
+    public void añadirAlumno(String nombre, String apellido, String correo, Integer telefono, LocalDate fecha) throws Exception{
         
         try{
             ConexionMySQL conexion = new ConexionMySQL("localhost:3307", "codingacademy_database", "root", "");
             Connection conn = conexion.getConnection();
             String sql = "INSERT INTO alumnos (nombre, apellido, correo, telefono, fecha_registro) VALUES (?, ?, ?, ?, ?)";
-            
             
             PreparedStatement stmt = conn.prepareStatement(sql);
             
@@ -211,8 +210,12 @@ public class Alumno {
             stmt.close();
             conexion.cerrarConexion();
             
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(SQLException e){
+            if(e.getMessage().contains("Duplicate entry")){
+                throw new Exception("El correo ya esta registrado.");
+            } else{
+                throw new Exception("Error al registrar el alumno.");
+            }
         }
     }
     

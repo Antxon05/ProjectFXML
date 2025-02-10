@@ -10,10 +10,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="727.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PantallaAlumnosController">
+<AnchorPane id="AnchorPane" prefHeight="777.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PantallaAlumnosController">
     <children>
+      <Button fx:id="b_inicio" layoutX="25.0" layoutY="23.0" mnemonicParsing="false" onMouseClicked="#volverInicio" prefHeight="30.0" prefWidth="77.0" text="INICIO">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Button>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <TableView fx:id="t_alumnos" layoutX="34.0" layoutY="129.0" prefHeight="313.0" prefWidth="742.0">
+      <TableView fx:id="t_alumnos" layoutX="33.0" layoutY="179.0" prefHeight="313.0" prefWidth="742.0">
         <columns>
           <TableColumn fx:id="c_nombre" prefWidth="119.0" text="Nombre" />
           <TableColumn fx:id="c_apellido" prefWidth="134.0" text="Apellido" />
@@ -22,90 +27,90 @@
             <TableColumn fx:id="c_fecha" prefWidth="173.0" text="Fecha Registro" />
         </columns>
       </TableView>
-      <Label layoutX="34.0" layoutY="494.0" prefHeight="30.0" prefWidth="88.0" text="Nombre:">
+      <Label layoutX="33.0" layoutY="544.0" prefHeight="30.0" prefWidth="88.0" text="Nombre:">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="34.0" layoutY="541.0" prefHeight="30.0" prefWidth="88.0" text="Apellido:">
+      <Label layoutX="33.0" layoutY="591.0" prefHeight="30.0" prefWidth="88.0" text="Apellido:">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="34.0" layoutY="590.0" prefHeight="30.0" prefWidth="88.0" text="Correo:">
+      <Label layoutX="33.0" layoutY="640.0" prefHeight="30.0" prefWidth="88.0" text="Correo:">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="278.0" layoutY="494.0" prefHeight="30.0" prefWidth="88.0" text="Teléfono:">
+      <Label layoutX="277.0" layoutY="544.0" prefHeight="30.0" prefWidth="88.0" text="Teléfono:">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="278.0" layoutY="590.0" prefHeight="30.0" prefWidth="109.0" text="Fecha Registro:">
+      <Label layoutX="277.0" layoutY="640.0" prefHeight="30.0" prefWidth="109.0" text="Fecha Registro:">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="tf_nombre" layoutX="101.0" layoutY="497.0">
+      <TextField fx:id="tf_nombre" layoutX="100.0" layoutY="547.0">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField fx:id="tf_apellido" layoutX="101.0" layoutY="544.0">
+      <TextField fx:id="tf_apellido" layoutX="100.0" layoutY="594.0">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField fx:id="tf_correo" layoutX="101.0" layoutY="593.0">
+      <TextField fx:id="tf_correo" layoutX="100.0" layoutY="643.0">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField fx:id="tf_tlf" layoutX="399.0" layoutY="496.0">
+      <TextField fx:id="tf_tlf" layoutX="398.0" layoutY="546.0">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <Button fx:id="b_add" layoutX="630.0" layoutY="476.0" mnemonicParsing="false" onMouseClicked="#addAlumno" prefHeight="43.0" prefWidth="145.0" text="AÑADIR">
+      <Button fx:id="b_add" layoutX="629.0" layoutY="526.0" mnemonicParsing="false" onMouseClicked="#addAlumno" prefHeight="43.0" prefWidth="145.0" text="AÑADIR">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="b_update" layoutX="630.0" layoutY="550.0" mnemonicParsing="false" onMouseClicked="#updateAlumno" prefHeight="43.0" prefWidth="145.0" text="ACTUALIZAR">
+      <Button fx:id="b_update" layoutX="629.0" layoutY="600.0" mnemonicParsing="false" onMouseClicked="#updateAlumno" prefHeight="43.0" prefWidth="145.0" text="ACTUALIZAR">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="b_delete" layoutX="630.0" layoutY="619.0" mnemonicParsing="false" onMouseClicked="#deleteAlumno" prefHeight="43.0" prefWidth="145.0" text="ELIMINAR">
+      <Button fx:id="b_delete" layoutX="629.0" layoutY="669.0" mnemonicParsing="false" onMouseClicked="#deleteAlumno" prefHeight="43.0" prefWidth="145.0" text="ELIMINAR">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <ComboBox fx:id="cb_nombre" layoutX="153.0" layoutY="65.0" prefWidth="150.0" />
-      <Label layoutX="64.0" layoutY="65.0" prefHeight="25.0" prefWidth="69.0" text="Buscar:">
+      <ComboBox fx:id="cb_nombre" layoutX="152.0" layoutY="115.0" prefWidth="150.0" />
+      <Label layoutX="63.0" layoutY="115.0" prefHeight="25.0" prefWidth="69.0" text="Buscar:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cb_apellido" layoutX="333.0" layoutY="65.0" prefWidth="150.0" />
-      <Label layoutX="203.0" layoutY="39.0" text="Nombre">
+      <ComboBox fx:id="cb_apellido" layoutX="332.0" layoutY="115.0" prefWidth="150.0" />
+      <Label layoutX="202.0" layoutY="89.0" text="Nombre">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label layoutX="378.0" layoutY="39.0" text="Apellido">
+      <Label layoutX="377.0" layoutY="89.0" text="Apellido">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <DatePicker fx:id="dp_fecha" layoutX="396.0" layoutY="593.0" prefHeight="25.0" prefWidth="162.0" />
-      <Button fx:id="b_empty" layoutX="157.0" layoutY="651.0" mnemonicParsing="false" onMouseClicked="#vaciarDatos" prefHeight="43.0" prefWidth="330.0" text="VACIAR VALORES">
+      <DatePicker fx:id="dp_fecha" layoutX="395.0" layoutY="643.0" prefHeight="25.0" prefWidth="162.0" />
+      <Button fx:id="b_empty" layoutX="156.0" layoutY="701.0" mnemonicParsing="false" onMouseClicked="#vaciarDatos" prefHeight="43.0" prefWidth="330.0" text="VACIAR VALORES">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="b_eliminarFiltros" layoutX="510.0" layoutY="63.0" mnemonicParsing="false" onMouseClicked="#eliminarFiltro" prefHeight="30.0" prefWidth="145.0" text="ELIMINAR FILTROS">
+      <Button fx:id="b_eliminarFiltros" layoutX="509.0" layoutY="113.0" mnemonicParsing="false" onMouseClicked="#eliminarFiltro" prefHeight="30.0" prefWidth="145.0" text="ELIMINAR FILTROS">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

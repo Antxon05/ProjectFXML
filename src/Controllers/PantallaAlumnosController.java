@@ -7,14 +7,21 @@ package Controllers;
 import Models.Alumno;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -23,6 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  *
@@ -32,6 +40,7 @@ public class PantallaAlumnosController implements Initializable {
     
     private ObservableList<Alumno> alumnos = FXCollections.observableArrayList();
     private ObservableList<String> nombres = FXCollections.observableArrayList();
+    private Alert alerta;
     
     
     @FXML
@@ -86,6 +95,26 @@ public class PantallaAlumnosController implements Initializable {
     private ComboBox<String> cb_nombre;
     
     @FXML
+    private Button b_inicio;
+    
+    
+    @FXML
+    private void volverInicio(MouseEvent e){
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/PantallaPrincipal.fxml"));
+            Parent root = loader.load();
+            
+            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            
+            stage.setScene(new Scene(root));
+            stage.show();
+            
+        }catch(Exception exc){
+            exc.printStackTrace();
+        }
+    }
+    
+    @FXML
     private void eliminarFiltro(MouseEvent e){
         this.cb_nombre.setValue(null);
         this.cb_apellido.setValue(null);
@@ -103,42 +132,67 @@ public class PantallaAlumnosController implements Initializable {
     
     @FXML
     private void addAlumno(MouseEvent e){
-        
-        Alumno alumno = new Alumno();
-        
-        String nombre = tf_nombre.getText();
-        String apellido = tf_apellido.getText();
-        String correo = tf_correo.getText();
-        String telefonostr = tf_tlf.getText();
-        
-        if(telefonostr.length() > 9){
-            Alert mensaje = new Alert(Alert.AlertType.WARNING);
-            mensaje.setTitle("Advertencia");
-            mensaje.setContentText("Debes insertar como máximo 9 dígitos.");
-            mensaje.showAndWait();
-            
-            return;
-        }
-        
-        Integer telefono = null;
         try{
-            telefono = Integer.parseInt(telefonostr);
-        }catch(NumberFormatException exception){
-            Alert mensaje = new Alert(Alert.AlertType.ERROR);
-            mensaje.setTitle("Error");
-            mensaje.setContentText("Los valores deben de ser numéricos.");
-            mensaje.showAndWait();
-            return;
+            
+            Alumno alumno = new Alumno();
+
+            String nombre = tf_nombre.getText();
+            String apellido = tf_apellido.getText();
+            String correo = tf_correo.getText();
+            if(!correo.contains("@")){
+                alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Advertencia");
+                alerta.setContentText("No tienes ningún dominio asignado.");
+                alerta.showAndWait();
+
+                return;
+            }
+            
+            String telefonostr = tf_tlf.getText();
+
+            if(telefonostr.length() > 9){
+                alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Advertencia");
+                alerta.setContentText("Debes insertar como máximo 9 dígitos.");
+                alerta.showAndWait();
+
+                return;
+            }
+
+            Integer telefono = null;
+            try{
+                telefono = Integer.parseInt(telefonostr);
+            }catch(NumberFormatException exception){
+                alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setTitle("Error");
+                alerta.setContentText("Los valores deben de ser numéricos.");
+                alerta.showAndWait();
+                return;
+            }
+
+
+            LocalDate fecha = dp_fecha.getValue();
+
+            alumno.añadirAlumno(nombre, apellido, correo, telefono, fecha);
+            
+
+            alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Información");
+            alerta.setContentText("Se ha registrado correctamente el nuevo alumno a la base de datos.");
+            alerta.showAndWait();
+
+            actualizarTabla();
+            actualizarComboBoxes();
+            vaciarDatos(e);
+            
+        }catch(Exception exc){
+            alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("Error");
+            alerta.setContentText("Te falta insertar algun campo o el correo ya esta en uso.");
+            alerta.showAndWait();
         }
         
-        
-        LocalDate fecha = dp_fecha.getValue();
-        
-        alumno.añadirAlumno(nombre, apellido, correo, telefono, fecha);
-        
-        
-        actualizarTabla();
-        actualizarComboBoxes();
+            
     }
     
     @FXML
@@ -149,12 +203,70 @@ public class PantallaAlumnosController implements Initializable {
         String nombre = tf_nombre.getText();
         String apellido = tf_apellido.getText();
         String correo = tf_correo.getText();
-        Integer telefono = Integer.parseInt(tf_tlf.getText());
+        
+        //Verificación de que el correo contenga el @
+        if(!correo.contains("@")){
+                alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Advertencia");
+                alerta.setContentText("No tienes ningún dominio asignado.");
+                alerta.showAndWait();
+
+                return;
+            }
+        String telefonostr = tf_tlf.getText();
+        
+        //Verificación de que el telefono tenga menos de 9 dígitos
+            if(telefonostr.length() > 9){
+                alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Advertencia");
+                alerta.setContentText("Debes insertar como máximo 9 dígitos.");
+                alerta.showAndWait();
+
+                return;
+            }
+
+            //Verificación de que los valores del teléfono sean numéricos
+            Integer telefono = null;
+            try{
+                telefono = Integer.parseInt(telefonostr);
+            }catch(NumberFormatException exception){
+                alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setTitle("Error");
+                alerta.setContentText("Los valores deben de ser numéricos.");
+                alerta.showAndWait();
+                return;
+            }
         LocalDate fecha = dp_fecha.getValue();
         
-        alumno.updateAlumno(nombre, apellido, correo, telefono, fecha);
+        //Alerta de confirmación de modificación del alumno
+        alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("Confirmación");
+        alerta.setHeaderText("Actualizar datos del alumno");
+        alerta.setContentText("¿Estas seguro de que quieres actualizar los datos");
         
-        actualizarTabla();
+        ButtonType bSi = new ButtonType("Sí");
+        ButtonType bNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        
+        alerta.getButtonTypes().setAll(bSi, bNo);
+        
+        Optional<ButtonType> respuesta = alerta.showAndWait();
+        
+        if(respuesta.isPresent() && respuesta.get() == bSi){
+            alumno.updateAlumno(nombre, apellido, correo, telefono, fecha);
+            actualizarTabla();
+            
+            
+            alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Información");
+            alerta.setContentText("Los datos han sido actualizados correctamente.");
+            alerta.showAndWait();
+            
+        }else{
+            alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Información");
+            alerta.setContentText("Los datos no se han actualizado.");
+            alerta.showAndWait();
+        }
     }
     
     
@@ -162,17 +274,38 @@ public class PantallaAlumnosController implements Initializable {
     private void deleteAlumno(MouseEvent e){
         
         Alumno alumno = new Alumno();
-        
         String correo = tf_correo.getText();
         
-        alumno.eliminarAlumno(correo);
         
-        actualizarTabla();
+        alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("Confirmación");
+        alerta.setHeaderText("Eliminar datos del alumno.");
+        alerta.setContentText("¿Estas seguro de que quieres eliminar a este alumno de la base de datos?");
         
-        vaciarDatos(e);
+        ButtonType bSi = new ButtonType("Sí");
+        ButtonType bNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        
+        alerta.getButtonTypes().setAll(bSi, bNo);
+        
+        Optional<ButtonType> respuesta = alerta.showAndWait();
+        
+        if(respuesta.isPresent() && respuesta.get() == bSi){
+            alumno.eliminarAlumno(correo);
+            actualizarTabla();
+            vaciarDatos(e);
+            
+            alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Información");
+            alerta.setContentText("El alumno ha sido eliminado correctamente.");
+            alerta.showAndWait();
+            
+        }else{
+            alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Información");
+            alerta.setContentText("El alumno no se ha eliminado.");
+            alerta.showAndWait();
+        }
     }
-    
-    
     
     
     @Override
