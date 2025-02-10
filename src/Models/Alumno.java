@@ -272,7 +272,6 @@ public class Alumno {
     
     
     public void updateAlumno(String nombre, String apellido, String correo, Integer telefono, LocalDate fecha){
-        
         try{
             
             ConexionMySQL conexion = new ConexionMySQL("localhost:3307", "codingacademy_database", "root", "");

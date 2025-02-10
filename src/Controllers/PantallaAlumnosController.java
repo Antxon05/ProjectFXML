@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -84,6 +85,11 @@ public class PantallaAlumnosController implements Initializable {
     @FXML
     private ComboBox<String> cb_nombre;
     
+    @FXML
+    private void eliminarFiltro(MouseEvent e){
+        this.cb_nombre.setValue(null);
+        this.cb_apellido.setValue(null);
+    }
     
     @FXML
     private void vaciarDatos(MouseEvent e){
@@ -103,13 +109,36 @@ public class PantallaAlumnosController implements Initializable {
         String nombre = tf_nombre.getText();
         String apellido = tf_apellido.getText();
         String correo = tf_correo.getText();
-        Integer telefono = Integer.parseInt(tf_tlf.getText());
+        String telefonostr = tf_tlf.getText();
+        
+        if(telefonostr.length() > 9){
+            Alert mensaje = new Alert(Alert.AlertType.WARNING);
+            mensaje.setTitle("Advertencia");
+            mensaje.setContentText("Debes insertar como máximo 9 dígitos.");
+            mensaje.showAndWait();
+            
+            return;
+        }
+        
+        Integer telefono = null;
+        try{
+            telefono = Integer.parseInt(telefonostr);
+        }catch(NumberFormatException exception){
+            Alert mensaje = new Alert(Alert.AlertType.ERROR);
+            mensaje.setTitle("Error");
+            mensaje.setContentText("Los valores deben de ser numéricos.");
+            mensaje.showAndWait();
+            return;
+        }
+        
+        
         LocalDate fecha = dp_fecha.getValue();
         
         alumno.añadirAlumno(nombre, apellido, correo, telefono, fecha);
         
         
         actualizarTabla();
+        actualizarComboBoxes();
     }
     
     @FXML
@@ -149,16 +178,44 @@ public class PantallaAlumnosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        actualizarTabla();
         
+        actualizarTabla();
         actualizarComboBoxes();
         
         t_alumnos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
         
-        seleccionarFila();
+            seleccionarFila();
         
         });
         
+        cb_nombre.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            filtrarTabla();
+        });
+        
+        cb_apellido.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            filtrarTabla();
+        });
+        
+        actualizarTabla();
+        
+    }
+    
+    private void filtrarTabla() {
+        String nombreSeleccionado = cb_nombre.getValue();
+        String apellidoSeleccionado = cb_apellido.getValue();
+        
+        ObservableList<Alumno> alumnosFiltrados = FXCollections.observableArrayList();
+
+        for (Alumno alumno : alumnos) {
+            boolean coincideNombre = (nombreSeleccionado == null || alumno.getNombre().equals(nombreSeleccionado));
+            boolean coincideApellido = (apellidoSeleccionado == null || alumno.getApellido().equals(apellidoSeleccionado));
+
+            if (coincideNombre && coincideApellido) {
+                alumnosFiltrados.add(alumno);
+            }
+        }
+
+        t_alumnos.setItems(alumnosFiltrados);
     }
 
 
