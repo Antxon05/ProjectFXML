@@ -178,7 +178,7 @@ public class PantallaAlumnosController implements Initializable {
 
             alerta = new Alert(Alert.AlertType.INFORMATION);
             alerta.setTitle("Información");
-            alerta.setContentText("Se ha registrado correctamente el nuevo alumno a la base de datos.");
+            alerta.setContentText("Se ha registrado el nuevo alumno correctamente.");
             alerta.showAndWait();
 
             actualizarTabla();
@@ -242,7 +242,7 @@ public class PantallaAlumnosController implements Initializable {
         alerta = new Alert(Alert.AlertType.CONFIRMATION);
         alerta.setTitle("Confirmación");
         alerta.setHeaderText("Actualizar datos del alumno");
-        alerta.setContentText("¿Estas seguro de que quieres actualizar los datos");
+        alerta.setContentText("¿Estas seguro de que quieres actualizar los datos?");
         
         ButtonType bSi = new ButtonType("Sí");
         ButtonType bNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -280,7 +280,7 @@ public class PantallaAlumnosController implements Initializable {
         alerta = new Alert(Alert.AlertType.CONFIRMATION);
         alerta.setTitle("Confirmación");
         alerta.setHeaderText("Eliminar datos del alumno.");
-        alerta.setContentText("¿Estas seguro de que quieres eliminar a este alumno de la base de datos?");
+        alerta.setContentText("¿Estas seguro de que quieres eliminar este alumno?");
         
         ButtonType bSi = new ButtonType("Sí");
         ButtonType bNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -312,9 +312,6 @@ public class PantallaAlumnosController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         
-        actualizarTabla();
-        actualizarComboBoxes();
-        
         t_alumnos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
         
             seleccionarFila();
@@ -329,8 +326,8 @@ public class PantallaAlumnosController implements Initializable {
             filtrarTabla();
         });
         
+        actualizarComboBoxes();
         actualizarTabla();
-        
     }
     
     private void filtrarTabla() {

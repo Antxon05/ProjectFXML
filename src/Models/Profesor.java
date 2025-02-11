@@ -4,7 +4,6 @@
  */
 package Models;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,38 +18,34 @@ import javafx.collections.ObservableList;
  *
  * @author antxon
  */
-public class Alumno {
+public class Profesor {
     
-    
-    
-    private Integer id_alumno;
+    private Integer id_profesor;
     private String nombre;
     private String apellido;
     private String correo;
-    private Integer telefono;
-    private LocalDate fechaRegistro;
-    
+
     private ConexionMySQL conexion = new ConexionMySQL("localhost:3307", "codingacademy_database", "root", "");
     private Connection conn = this.conexion.getConnection();
 
-    public Alumno() {
+    public Profesor() {
+        
     }
-
-    public Alumno(Integer id_alumno, String nombre, String apellido, String correo, Integer telefono, LocalDate fechaRegistro) {
-        this.id_alumno = id_alumno;
+    
+    
+    public Profesor(Integer id_profesor, String nombre, String apellido, String correo) {
+        this.id_profesor = id_profesor;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
-        this.telefono = telefono;
-        this.fechaRegistro = fechaRegistro;
     }
 
-    public Integer getId_alumno() {
-        return id_alumno;
+    public Integer getId_profesor() {
+        return id_profesor;
     }
 
-    public void setId_alumno(Integer id_alumno) {
-        this.id_alumno = id_alumno;
+    public void setId_profesor(Integer id_profesor) {
+        this.id_profesor = id_profesor;
     }
 
     public String getNombre() {
@@ -77,52 +72,34 @@ public class Alumno {
         this.correo = correo;
     }
 
-    public Integer getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(Integer telefono) {
-        this.telefono = telefono;
-    }
-
-    public LocalDate getFechaRegistro() {
-        return fechaRegistro;
-    }
-
-    public void setFechaRegistro(LocalDate fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
-    }
-
     @Override
     public String toString() {
-        return "Alumno{" + "id_alumno=" + id_alumno + ", nombre=" + nombre + ", apellido=" + apellido + ", correo=" + correo + ", telefono=" + telefono + ", fechaRegistro=" + fechaRegistro + '}';
+        return "Profesor{" + "id_profesor=" + id_profesor + ", nombre=" + nombre + ", apellido=" + apellido + ", correo=" + correo + '}';
     }
     
     
-    public ObservableList<Alumno> getAlumnos() {
-        ObservableList<Alumno> obs = FXCollections.observableArrayList();
+     public ObservableList<Profesor> getProfesores() {
+        ObservableList<Profesor> obs = FXCollections.observableArrayList();
         try {
             //Creación de la conexión y ejecución de la consulta
             
-            String sql = "SELECT * FROM alumnos";
+            String sql = "SELECT * FROM profesores";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             
 
             // recorro los resultados y guardo los datos en variables
             while (rs.next()) {
-                Integer idAlumno = rs.getInt("id_alumno");
+                Integer idProfesor = rs.getInt("id_profesor");
                 String nombre = rs.getString("nombre");
                 String apellido = rs.getString("apellido");
                 String correo = rs.getString("correo");
-                Integer telefono = rs.getInt("telefono");
-                LocalDate fechaRegistro = rs.getDate("fecha_registro").toLocalDate();
                 
                 // Creo el cliente con los datos recogidos
-                Alumno a = new Alumno(idAlumno, nombre, apellido, correo, telefono, fechaRegistro);
+                Profesor p = new Profesor(idProfesor, nombre, apellido, correo);
 
                 //Lo añado a la lista
-                obs.add(a);
+                obs.add(p);
 
             }
 
@@ -133,20 +110,18 @@ public class Alumno {
             conexion.cerrarConexion();
 
         } catch (SQLException ex) {
-            Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Profesor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return obs;
     }
-    
-    
-    
-    public ObservableList<String> mostrarNombres(){
+     
+     public ObservableList<String> mostrarNombres(){
         
         ObservableList<String> nombres = FXCollections.observableArrayList();
         
         try{
             
-            String sql = "SELECT nombre FROM alumnos";
+            String sql = "SELECT nombre FROM profesores";
             PreparedStatement stmt = this.conn.prepareStatement(sql);
             
             ResultSet rs = stmt.executeQuery();
@@ -169,7 +144,7 @@ public class Alumno {
         
         try{
             
-            String sql = "SELECT apellido FROM alumnos";
+            String sql = "SELECT apellido FROM profesores";
             PreparedStatement stmt = this.conn.prepareStatement(sql);
             
             ResultSet rs = stmt.executeQuery();
@@ -186,21 +161,18 @@ public class Alumno {
         return apellidos;
     }
     
-    
-    public void añadirAlumno(String nombre, String apellido, String correo, Integer telefono, LocalDate fecha) throws Exception{
+    public void añadirProfesor(String nombre, String apellido, String correo) throws Exception{
         
         try{
             ConexionMySQL conexion = new ConexionMySQL("localhost:3307", "codingacademy_database", "root", "");
             Connection conn = conexion.getConnection();
-            String sql = "INSERT INTO alumnos (nombre, apellido, correo, telefono, fecha_registro) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO profesores (nombre, apellido, correo) VALUES (?, ?, ?)";
             
             PreparedStatement stmt = conn.prepareStatement(sql);
             
             stmt.setString(1, nombre);
             stmt.setString(2, apellido);
             stmt.setString(3, correo);
-            stmt.setInt(4, telefono);
-            stmt.setDate(5, java.sql.Date.valueOf(fecha));
             
             
             stmt.executeUpdate();
@@ -212,93 +184,37 @@ public class Alumno {
             if(e.getMessage().contains("Duplicate entry")){
                 throw new Exception("El correo ya esta registrado.");
             } else{
-                throw new Exception("Error al registrar el alumno.");
+                throw new Exception("Error al registrar el profesor.");
             }
         }
     }
     
-    
-    public void eliminarAlumno(String correo){
+    public void updateProfesor(String nombre, String apellido, String correo){
         try{
             
             ConexionMySQL conexion = new ConexionMySQL("localhost:3307", "codingacademy_database", "root", "");
             Connection conn = conexion.getConnection();
             
-            String consulta = "SELECT id_alumno FROM alumnos WHERE correo = ?";
-            PreparedStatement pst1 = conn.prepareStatement(consulta);
-            pst1.setString(1, correo);
-            ResultSet rs = pst1.executeQuery();
-            
-            if(rs.next()){
-                Integer id = rs.getInt("id_alumno");
-                
-                rs.close();
-                pst1.close();
-                
-                String sqlDelete = "DELETE FROM alumnos WHERE id_alumno = ?";
-                PreparedStatement pst2 = conn.prepareStatement(sqlDelete);
-                pst2.setInt(1, id);
-                pst2.executeUpdate();
-                pst2.close();
-                
-                //Toda esta operación sirve para que el id se auto incremente despues del mayor id existente
-                String getMaxIdSql = "SELECT MAX(id_alumno) FROM alumnos";
-                PreparedStatement pst3 = conn.prepareStatement(getMaxIdSql);
-                ResultSet rsMax = pst3.executeQuery();
-
-                int maxId = 0;
-                if (rsMax.next()) {
-                    maxId = rsMax.getInt(1);
-                }
-                rsMax.close();
-                pst3.close();
-                
-                String sqlAlter = "ALTER TABLE alumnos AUTO_INCREMENT = ?";
-                PreparedStatement pst4 = conn.prepareStatement(sqlAlter);
-                pst4.setInt(1, maxId + 1); // Aseguramos que el próximo valor será mayor
-                pst4.executeUpdate();
-                pst4.close();
-                
-                System.out.println("Se ha eliminado correctamente el usuario con id = " + id);
-            }else{
-                System.out.println("No se encontro ningun alumno con ese correo");
-            }
-            
-            conexion.cerrarConexion();
-            
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-    
-    
-    public void updateAlumno(String nombre, String apellido, String correo, Integer telefono, LocalDate fecha){
-        try{
-            
-            ConexionMySQL conexion = new ConexionMySQL("localhost:3307", "codingacademy_database", "root", "");
-            Connection conn = conexion.getConnection();
-            
-            String verificarSql = "SELECT id_alumno FROM alumnos WHERE correo = ?";
+            //Verificamos con el correo ya que es una clave única y no se puede repetir
+            String verificarSql = "SELECT id_profesor FROM profesores WHERE correo = ?";
             PreparedStatement pst1 = conn.prepareStatement(verificarSql);
             pst1.setString(1, correo);
             ResultSet rs = pst1.executeQuery();
             
             if(rs.next()){
-                Integer id = rs.getInt("id_alumno");
+                Integer id = rs.getInt("id_profesor");
                 
                 rs.close();
                 pst1.close();
                 
                 
-                String updateSql = "UPDATE alumnos SET nombre = ?, apellido = ?, correo = ?, telefono = ?, fecha_registro = ? WHERE id_alumno = ?";
+                String updateSql = "UPDATE profesores SET nombre = ?, apellido = ?, correo = ? WHERE id_profesor = ?";
                 PreparedStatement pst2 = conn.prepareStatement(updateSql);
                 
                 pst2.setString(1, nombre);
                 pst2.setString(2, apellido);
                 pst2.setString(3, correo);
-                pst2.setInt(4, telefono);
-                pst2.setDate(5, java.sql.Date.valueOf(fecha));
-                pst2.setInt(6, id);
+                pst2.setInt(4, id);
                 
                 pst2.executeUpdate();
                 
@@ -312,6 +228,60 @@ public class Alumno {
         }
         
     }
+    
+    public void eliminarProfesor(String correo){
+        try{
+            
+            ConexionMySQL conexion = new ConexionMySQL("localhost:3307", "codingacademy_database", "root", "");
+            Connection conn = conexion.getConnection();
+            
+            String consulta = "SELECT id_profesor FROM profesores WHERE correo = ?";
+            PreparedStatement pst1 = conn.prepareStatement(consulta);
+            pst1.setString(1, correo);
+            ResultSet rs = pst1.executeQuery();
+            
+            if(rs.next()){
+                Integer id = rs.getInt("id_profesor");
+                
+                rs.close();
+                pst1.close();
+                
+                String sqlDelete = "DELETE FROM profesores WHERE id_profesor = ?";
+                PreparedStatement pst2 = conn.prepareStatement(sqlDelete);
+                pst2.setInt(1, id);
+                pst2.executeUpdate();
+                pst2.close();
+                
+                //Toda esta operación sirve para que el id se auto incremente despues del mayor id existente
+                String getMaxIdSql = "SELECT MAX(id_profesor) FROM profesores";
+                PreparedStatement pst3 = conn.prepareStatement(getMaxIdSql);
+                ResultSet rsMax = pst3.executeQuery();
 
+                int maxId = 0;
+                if (rsMax.next()) {
+                    maxId = rsMax.getInt(1);
+                }
+                rsMax.close();
+                pst3.close();
+                
+                String sqlAlter = "ALTER TABLE profesores AUTO_INCREMENT = ?";
+                PreparedStatement pst4 = conn.prepareStatement(sqlAlter);
+                pst4.setInt(1, maxId + 1); // Aseguramos que el próximo valor será mayor
+                pst4.executeUpdate();
+                pst4.close();
+                
+                System.out.println("Se ha eliminado correctamente el profesor con id = " + id);
+            }else{
+                System.out.println("No se encontró ningun profesor con ese correo");
+            }
+            
+            conexion.cerrarConexion();
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    
     
 }

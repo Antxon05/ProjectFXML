@@ -18,7 +18,7 @@ public class ProjectFXML_AntxónMoço extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/PantallaAlumnos.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/PantallaPrincipal.fxml"));
         
         Scene scene = new Scene(root);
         

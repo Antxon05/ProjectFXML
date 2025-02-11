@@ -35,8 +35,7 @@ class ConexionMySQL {
             
             String url = "jdbc:mysql://" + host + "/" + database + "?serverTimezone=UTC";
             connection = DriverManager.getConnection(url, user, password);
-            
-            System.out.println("Se ha establecido la conexión");
+            System.out.println("Conexion abierta.");
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -63,8 +62,10 @@ class ConexionMySQL {
     public void cerrarConexion(){
         try{
             
-            if (connection != null) connection.close();
-            System.out.println("Conexión cerrada.");
+            if (connection != null){
+                connection.close();
+                System.out.println("Conexion cerrada.");
+            }
             
         }catch(Exception e){
             e.printStackTrace();
