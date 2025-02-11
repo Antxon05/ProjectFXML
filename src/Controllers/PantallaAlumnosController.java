@@ -292,6 +292,7 @@ public class PantallaAlumnosController implements Initializable {
         if(respuesta.isPresent() && respuesta.get() == bSi){
             alumno.eliminarAlumno(correo);
             actualizarTabla();
+            actualizarComboBoxes();
             vaciarDatos(e);
             
             alerta = new Alert(Alert.AlertType.INFORMATION);

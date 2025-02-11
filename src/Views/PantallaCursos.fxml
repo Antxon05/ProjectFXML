@@ -5,34 +5,33 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="776.0" prefWidth="773.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="Controllers.PantallaCursosController">
+<AnchorPane id="AnchorPane" prefHeight="776.0" prefWidth="773.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PantallaCursosController">
    <children>
       <Button fx:id="b_inicio" layoutX="28.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#volverInicio" prefHeight="30.0" prefWidth="77.0" text="INICIO">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Button>
-      <TableView layoutX="38.0" layoutY="180.0" prefHeight="315.0" prefWidth="698.0">
+      <TableView fx:id="tv_cursos" layoutX="28.0" layoutY="181.0" prefHeight="315.0" prefWidth="698.0">
         <columns>
-          <TableColumn prefWidth="148.0" text="Nombre" />
-          <TableColumn prefWidth="162.0" text="Descripción" />
-            <TableColumn prefWidth="205.0" text="Duración Horas" />
-            <TableColumn prefWidth="182.0" text="Profesor" />
+          <TableColumn fx:id="c_nombre" prefWidth="361.0" text="Nombre" />
+            <TableColumn fx:id="c_duracion" prefWidth="139.0" text="Duración Horas" />
+            <TableColumn fx:id="c_profesor" prefWidth="197.0" text="Profesor" />
         </columns>
       </TableView>
-      <ComboBox fx:id="cb_nombre" layoutX="134.0" layoutY="112.0" prefWidth="150.0" />
+      <ComboBox fx:id="cb_curso" layoutX="134.0" layoutY="112.0" prefWidth="150.0" />
       <Label layoutX="48.0" layoutY="112.0" prefHeight="25.0" prefWidth="69.0" text="Buscar:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cb_apellido" layoutX="314.0" layoutY="112.0" prefWidth="150.0" />
-      <Label layoutX="184.0" layoutY="86.0" text="Nombre">
+      <ComboBox fx:id="cb_profesor" layoutX="314.0" layoutY="112.0" prefWidth="150.0" />
+      <Label layoutX="184.0" layoutY="86.0" text="Curso">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -67,45 +66,42 @@
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField fx:id="tf_apellido" layoutX="161.0" layoutY="649.0">
+      <TextField fx:id="tf_duracion" layoutX="161.0" layoutY="649.0">
          <font>
             <Font size="13.0" />
          </font>
       </TextField>
-      <TextField fx:id="tf_correo" layoutX="161.0" layoutY="589.0">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </TextField>
-      <Button fx:id="b_empty" layoutX="69.0" layoutY="703.0" mnemonicParsing="false" onMouseClicked="#vaciarDatos" prefHeight="43.0" prefWidth="191.0" text="VACIAR VALORES">
+      <Button fx:id="b_vaciar" layoutX="147.0" layoutY="703.0" mnemonicParsing="false" onMouseClicked="#vaciarDatos" prefHeight="43.0" prefWidth="191.0" text="VACIAR VALORES">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Button>
-      <Button fx:id="b_add" layoutX="392.0" layoutY="532.0" mnemonicParsing="false" onMouseClicked="#addProfesor" prefHeight="43.0" prefWidth="145.0" text="AÑADIR">
+      <Button fx:id="b_add" layoutX="563.0" layoutY="524.0" mnemonicParsing="false" onMouseClicked="#addCurso" prefHeight="43.0" prefWidth="145.0" text="AÑADIR">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="b_update" layoutX="392.0" layoutY="607.0" mnemonicParsing="false" onMouseClicked="#updateProfesor" prefHeight="43.0" prefWidth="145.0" text="ACTUALIZAR">
+      <Button fx:id="b_update" layoutX="563.0" layoutY="581.0" mnemonicParsing="false" onMouseClicked="#updateCurso" prefHeight="43.0" prefWidth="145.0" text="ACTUALIZAR">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="b_delete" layoutX="392.0" layoutY="679.0" mnemonicParsing="false" onMouseClicked="#deleteProfesor" prefHeight="43.0" prefWidth="145.0" text="ELIMINAR">
+      <Button fx:id="b_delete" layoutX="563.0" layoutY="641.0" mnemonicParsing="false" onMouseClicked="#deleteCurso" prefHeight="43.0" prefWidth="145.0" text="ELIMINAR">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="b_update1" layoutX="564.0" layoutY="557.0" mnemonicParsing="false" onMouseClicked="#updateProfesor" prefHeight="65.0" prefWidth="180.0" text="ASIGNAR PROFESOR">
+      <Button fx:id="b_inscribirA" layoutX="548.0" layoutY="698.0" mnemonicParsing="false" onMouseClicked="#inscribirAlumno" prefHeight="53.0" prefWidth="176.0" text="INSCRIPCIÓN DE ALUMNOS">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="b_delete1" layoutX="564.0" layoutY="644.0" mnemonicParsing="false" onMouseClicked="#deleteProfesor" prefHeight="65.0" prefWidth="180.0" text="INSCRIPCIÓN DE ALUMNOS">
+      <TextArea fx:id="tf_descripcion" layoutX="161.0" layoutY="572.0" prefHeight="65.0" prefWidth="162.0" />
+      <Label layoutX="379.0" layoutY="530.0" prefHeight="30.0" prefWidth="126.0" text="Profesor:">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
-      </Button>
+      </Label>
+      <ComboBox fx:id="cb_seleccionProfesor" layoutX="370.0" layoutY="572.0" prefHeight="35.0" prefWidth="145.0" />
    </children>
 </AnchorPane>
