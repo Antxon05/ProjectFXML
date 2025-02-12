@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package Controllers;
 
 import Models.Alumno;
@@ -33,9 +29,10 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
- *
- * @author antxon
+ * FXML Controller class para gestionar los cursos.
+ * 
+ * Este controlador se encarga de la lógica de la interfaz de usuario para agregar,
+ * eliminar, actualizar cursos, y manejar los filtros de la tabla de cursos.
  */
 public class PantallaCursosController implements Initializable {
 
@@ -45,83 +42,58 @@ public class PantallaCursosController implements Initializable {
     
     @FXML
     private Button b_add;
-
     @FXML
     private Button b_asignarP;
-
     @FXML
     private Button b_delete;
-
     @FXML
     private Button b_eliminarFiltros;
-
     @FXML
     private Button b_inicio;
-
     @FXML
     private Button b_inscribirA;
-
     @FXML
     private Button b_update;
-
     @FXML
     private Button b_vaciar;
     
-
     @FXML
     private TableColumn<Curso, String> c_descripcion;
-
     @FXML
     private TableColumn<Curso, String> c_duracion;
-
     @FXML
     private TableColumn<Curso, String> c_nombre;
-
     @FXML
     private TableColumn<Curso, String> c_profesor;
-
+    
     @FXML
     private ComboBox<String> cb_curso;
-
     @FXML
     private ComboBox<String> cb_profesor;
-
     @FXML
     private TextField tf_duracion;
-
     @FXML
     private TextField tf_nombre;
-    
     @FXML
     private TableView<Curso> tv_cursos;
-    
     @FXML
     private TextArea tf_descripcion;
-    
     @FXML
     private ComboBox<String> cb_seleccionProfesor;
     
-    
-    @FXML
-    private void asignarProfesor(MouseEvent e){
-        
-    }
-    
-    @FXML
-    private void inscribirAlumno(MouseEvent e){
-        
-    }
-
+    /**
+     * Agrega un nuevo curso a la base de datos.
+     * Recoge la información ingresada y la envía al modelo Curso para que sea registrada.
+     * Luego actualiza la tabla y los ComboBoxes.
+     */
     @FXML
     void addCurso(MouseEvent e) {
-        try{
+        try {
             Curso curso = new Curso();
-
             String nombre = tf_nombre.getText();
             String descripcion = tf_descripcion.getText();
             String duracion = tf_duracion.getText();
             String profesor = cb_seleccionProfesor.getValue();
-
 
             curso.añadirCurso(nombre, descripcion, duracion);
             curso.añadirProfesorAsignacion(profesor, nombre);
@@ -135,26 +107,29 @@ public class PantallaCursosController implements Initializable {
             actualizarComboBoxes();
             vaciarDatos(e);
             
-        }catch(Exception exc){
+        } catch(Exception exc) {
             alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Error");
             alerta.setContentText("Te falta insertar algun campo.");
             alerta.showAndWait();
         }
-        
     }
 
+    /**
+     * Elimina un curso de la base de datos.
+     * Pide confirmación al usuario antes de proceder con la eliminación.
+     * Luego actualiza la tabla y los ComboBoxes.
+     */
     @FXML
     void deleteCurso(MouseEvent e) {
-
         Curso curso = new Curso();
-        String nombre = tf_nombre.getText();
+        Integer id = obtenerIdFila();
         String profesor = cb_seleccionProfesor.getValue();
         
         alerta = new Alert(Alert.AlertType.CONFIRMATION);
         alerta.setTitle("Confirmación");
-        alerta.setHeaderText("Eliminar datos del alumno.");
-        alerta.setContentText("¿Estas seguro de que quieres eliminar este alumno?");
+        alerta.setHeaderText("Eliminar datos del curso.");
+        alerta.setContentText("¿Estas seguro de que quieres eliminar este curso?");
         
         ButtonType bSi = new ButtonType("Sí");
         ButtonType bNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -163,8 +138,8 @@ public class PantallaCursosController implements Initializable {
         
         Optional<ButtonType> respuesta = alerta.showAndWait();
         
-        if(respuesta.isPresent() && respuesta.get() == bSi){
-            curso.eliminarCurso(nombre,profesor);
+        if(respuesta.isPresent() && respuesta.get() == bSi) {
+            curso.eliminarCurso(id, profesor);
             actualizarTabla();
             actualizarComboBoxes();
             vaciarDatos(e);
@@ -173,28 +148,69 @@ public class PantallaCursosController implements Initializable {
             alerta.setTitle("Información");
             alerta.setContentText("El curso ha sido eliminado correctamente.");
             alerta.showAndWait();
-            
-        }else{
+        } else {
             alerta = new Alert(Alert.AlertType.INFORMATION);
             alerta.setTitle("Información");
             alerta.setContentText("El curso no se ha eliminado.");
             alerta.showAndWait();
         }
-        
     }
 
-
+    /**
+     * Actualiza los datos de un curso.
+     * Solicita confirmación al usuario antes de realizar la actualización.
+     * Luego actualiza la tabla de cursos.
+     */
     @FXML
-    void updateCurso(MouseEvent e) {
-
+    void updateCurso(MouseEvent e) throws Exception {
+        Curso curso = new Curso();
+        
+        Integer id = obtenerIdFila();
+        String nombre = tf_nombre.getText();
+        String descripcion = tf_descripcion.getText();
+        Integer duracion = Integer.parseInt(tf_duracion.getText());
+        String profesor = cb_seleccionProfesor.getValue();
+        
+        alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("Confirmación");
+        alerta.setHeaderText("Actualizar datos del curso");
+        alerta.setContentText("¿Estas seguro de que quieres actualizar los datos?");
+        
+        ButtonType bSi = new ButtonType("Sí");
+        ButtonType bNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        
+        alerta.getButtonTypes().setAll(bSi, bNo);
+        
+        Optional<ButtonType> respuesta = alerta.showAndWait();
+        
+        if(respuesta.isPresent() && respuesta.get() == bSi) {
+            curso.updateCurso(id, nombre, descripcion, duracion, profesor);
+            actualizarTabla();
+            
+            alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Información");
+            alerta.setContentText("Los datos han sido actualizados correctamente.");
+            alerta.showAndWait();
+        } else {
+            alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Información");
+            alerta.setContentText("Los datos no se han actualizado.");
+            alerta.showAndWait();
+        }
     }
-    
+
+    /**
+     * Elimina los filtros de búsqueda aplicados en los ComboBoxes.
+     */
     @FXML
     void eliminarFiltro(MouseEvent e) {
         this.cb_curso.setValue(null);
         this.cb_profesor.setValue(null);
     }
 
+    /**
+     * Vacía los campos de entrada de texto en el formulario.
+     */
     @FXML
     void vaciarDatos(MouseEvent e) {
         tf_nombre.setText("");
@@ -203,9 +219,13 @@ public class PantallaCursosController implements Initializable {
         cb_seleccionProfesor.setValue("");
     }
 
+    /**
+     * Vuelve a la pantalla principal (inicio).
+     * Carga la vista de la pantalla principal.
+     */
     @FXML
     void volverInicio(MouseEvent e) {
-            try{
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/PantallaPrincipal.fxml"));
             Parent root = loader.load();
             
@@ -214,19 +234,17 @@ public class PantallaCursosController implements Initializable {
             stage.setScene(new Scene(root));
             stage.show();
             
-        }catch(Exception exc){
+        } catch(Exception exc) {
             exc.printStackTrace();
         }
     }
     
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        // Configura los listeners para los filtros de la tabla.
         tv_cursos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-        
             seleccionarFila();
-        
         });
         
         cb_curso.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
@@ -237,11 +255,14 @@ public class PantallaCursosController implements Initializable {
             filtrarTabla();
         });
         
+        // Actualiza los ComboBoxes y la tabla de cursos al inicio.
         actualizarComboBoxes();
         actualizarTabla();
-        
-    }   
-    
+    }
+
+    /**
+     * Filtra los cursos mostrados en la tabla según los filtros seleccionados en los ComboBoxes.
+     */
     private void filtrarTabla() {
         String nombreSeleccionado = cb_curso.getValue();
         String profesorSeleccionado = cb_profesor.getValue();
@@ -259,42 +280,56 @@ public class PantallaCursosController implements Initializable {
 
         tv_cursos.setItems(cursosFiltrados);
     }
-    
-    public void seleccionarFila(){
+
+    /**
+     * Rellena los campos del formulario con los datos del curso seleccionado en la tabla.
+     */
+    public void seleccionarFila() {
         Curso cSeleccionado = tv_cursos.getSelectionModel().getSelectedItem();
         
-        if(cSeleccionado != null){
-            
+        if(cSeleccionado != null) {
             tf_nombre.setText(cSeleccionado.getNombre());
             tf_descripcion.setWrapText(true);
             tf_descripcion.setText(cSeleccionado.getDescripcion());
             tf_duracion.setText(Integer.toString(cSeleccionado.getDuracion_horas()));
-            
             cb_seleccionProfesor.setValue(cSeleccionado.getProfesor());
-            
         }
     }
-    
-    public void actualizarTabla(){
-        
+
+    /**
+     * Obtiene el ID del curso seleccionado en la tabla.
+     */
+    public Integer obtenerIdFila() {
+        Curso cSeleccionado = tv_cursos.getSelectionModel().getSelectedItem();
+        Integer id = 0;
+        if(cSeleccionado != null) {
+            id = cSeleccionado.getId_curso();
+        }
+        return id;
+    }
+
+    /**
+     * Actualiza los datos de la tabla con la lista de cursos.
+     */
+    public void actualizarTabla() {
         Curso c = new Curso();
         
         c_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         c_duracion.setCellValueFactory(new PropertyValueFactory<>("duracion_horas"));
         c_profesor.setCellValueFactory(new PropertyValueFactory<>("profesor"));
         
-        
         cursos = c.getCursos();
-        
         tv_cursos.setItems(cursos);
     }
-    
-    public void actualizarComboBoxes(){
+
+    /**
+     * Actualiza los ComboBoxes con los nombres de cursos y profesores disponibles.
+     */
+    public void actualizarComboBoxes() {
         Curso c = new Curso();
         
         cb_curso.setItems(c.mostrarNombres());
         cb_profesor.setItems(c.mostrarNombreProfesores());
         cb_seleccionProfesor.setItems(c.mostrarNombreProfesores());
     }
-    
 }

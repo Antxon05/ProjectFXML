@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PantallaProfesoresController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PantallaProfesoresController">
    <children>
       <AnchorPane id="AnchorPane" layoutX="10.0" layoutY="10.0" prefHeight="787.0" prefWidth="736.0">
          <children>
@@ -26,12 +26,12 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="34.0" layoutY="637.0" prefHeight="30.0" prefWidth="88.0" text="Apellido:">
+            <Label layoutX="34.0" layoutY="570.0" prefHeight="30.0" prefWidth="88.0" text="Apellido:">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="34.0" layoutY="579.0" prefHeight="30.0" prefWidth="88.0" text="Correo:">
+            <Label layoutX="39.0" layoutY="624.0" prefHeight="30.0" prefWidth="88.0" text="Correo:">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -41,12 +41,12 @@
                   <Font size="13.0" />
                </font>
             </TextField>
-            <TextField fx:id="tf_apellido" layoutX="101.0" layoutY="640.0">
+            <TextField fx:id="tf_apellido" layoutX="101.0" layoutY="573.0">
                <font>
                   <Font size="13.0" />
                </font>
             </TextField>
-            <TextField fx:id="tf_correo" layoutX="101.0" layoutY="582.0">
+            <TextField fx:id="tf_correo" layoutX="106.0" layoutY="627.0">
                <font>
                   <Font size="13.0" />
                </font>
@@ -72,13 +72,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cb_apellido" layoutX="333.0" layoutY="109.0" prefWidth="150.0" />
             <Label layoutX="203.0" layoutY="83.0" text="Nombre">
-               <font>
-                  <Font name="System Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label layoutX="378.0" layoutY="83.0" text="Apellido">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

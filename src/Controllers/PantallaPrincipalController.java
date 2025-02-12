@@ -32,7 +32,7 @@ public class PantallaPrincipalController implements Initializable {
     @FXML
     private Button b_pProfesores;
     
-    
+    //Nos conduce hacia la pantalla de Estudiantes
     @FXML
     private void ventanaEstudiantes(MouseEvent e){
         try{
@@ -49,6 +49,7 @@ public class PantallaPrincipalController implements Initializable {
         }
     }
     
+    //Nos conduce hacia la pantalla de Profesores
     @FXML
     private void ventanaProfesores(MouseEvent e){
         try{
@@ -65,6 +66,7 @@ public class PantallaPrincipalController implements Initializable {
         }
     }
     
+    //Nos conduce hacia la pantalla de Cursos
     @FXML
     private void ventanaCursos(MouseEvent e){
         try{

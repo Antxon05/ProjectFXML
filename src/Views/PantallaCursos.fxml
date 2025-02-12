@@ -76,24 +76,19 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Button>
-      <Button fx:id="b_add" layoutX="563.0" layoutY="524.0" mnemonicParsing="false" onMouseClicked="#addCurso" prefHeight="43.0" prefWidth="145.0" text="AÑADIR">
+      <Button fx:id="b_add" layoutX="573.0" layoutY="540.0" mnemonicParsing="false" onMouseClicked="#addCurso" prefHeight="43.0" prefWidth="145.0" text="AÑADIR">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="b_update" layoutX="563.0" layoutY="581.0" mnemonicParsing="false" onMouseClicked="#updateCurso" prefHeight="43.0" prefWidth="145.0" text="ACTUALIZAR">
+      <Button fx:id="b_update" layoutX="573.0" layoutY="615.0" mnemonicParsing="false" onMouseClicked="#updateCurso" prefHeight="43.0" prefWidth="145.0" text="ACTUALIZAR">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="b_delete" layoutX="563.0" layoutY="641.0" mnemonicParsing="false" onMouseClicked="#deleteCurso" prefHeight="43.0" prefWidth="145.0" text="ELIMINAR">
+      <Button fx:id="b_delete" layoutX="573.0" layoutY="691.0" mnemonicParsing="false" onMouseClicked="#deleteCurso" prefHeight="43.0" prefWidth="145.0" text="ELIMINAR">
          <font>
             <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
-      <Button fx:id="b_inscribirA" layoutX="548.0" layoutY="698.0" mnemonicParsing="false" onMouseClicked="#inscribirAlumno" prefHeight="53.0" prefWidth="176.0" text="INSCRIPCIÓN DE ALUMNOS">
-         <font>
-            <Font name="System Bold" size="12.0" />
          </font>
       </Button>
       <TextArea fx:id="tf_descripcion" layoutX="161.0" layoutY="572.0" prefHeight="65.0" prefWidth="162.0" />

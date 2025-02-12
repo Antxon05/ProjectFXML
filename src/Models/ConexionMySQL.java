@@ -28,6 +28,8 @@ class ConexionMySQL {
         conectar();
     }
 
+    
+    //Método para conectarnos a la base de datos que le pasamos los valores en el constructor
     private void conectar() {
         try{
             
@@ -41,24 +43,15 @@ class ConexionMySQL {
         }
     }
     
+    
+    //Nos devuelve la conexión
     public Connection getConnection(){
         return connection;
     }
     
     
-    /*
-    public ResultSet ejecutarConsulta(String consulta){
-        try{
-            return statement.executeQuery(consulta);
-        }catch(Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-*/
     
-    
-    
+    //Cerramos la conexión
     public void cerrarConexion(){
         try{
             
