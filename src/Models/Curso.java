@@ -177,13 +177,14 @@ public class Curso {
     }
     
     public void eliminarCurso(String nombre, String profesor){
+        
         try{
-            ConexionMySQL conexion = new ConexionMySQL("localhost:3307", "codingacademy_database", "root", "");
-            Connection conn = conexion.getConnection();
-            
             
             eliminarAsignacion(profesor, nombre);
             
+            if (conn == null || conn.isClosed()) {
+                conn = conexion.getConnection();
+            }
             
             String consulta = "SELECT id_curso FROM cursos WHERE nombre = ?";
             PreparedStatement pst1 = conn.prepareStatement(consulta);
@@ -191,44 +192,44 @@ public class Curso {
             ResultSet rs = pst1.executeQuery();
             
             if(rs.next()){
-                Integer id = rs.getInt("id_curso");
-                
-                rs.close();
-                pst1.close();
+                int idCurso = rs.getInt("id_curso");
                 
                 String sqlDelete = "DELETE FROM cursos WHERE id_curso = ?";
                 PreparedStatement pst2 = conn.prepareStatement(sqlDelete);
-                pst2.setInt(1, id);
+                pst2.setInt(1, idCurso);
                 pst2.executeUpdate();
-                pst2.close();
                 
-                //Toda esta operación sirve para que el id se auto incremente despues del mayor id existente
+                
                 String getMaxIdSql = "SELECT MAX(id_curso) FROM cursos";
                 PreparedStatement pst3 = conn.prepareStatement(getMaxIdSql);
                 ResultSet rsMax = pst3.executeQuery();
-
+                
                 int maxId = 0;
-                if (rsMax.next()) {
+                if(rsMax.next()){
                     maxId = rsMax.getInt(1);
                 }
+                
                 rsMax.close();
                 pst3.close();
                 
                 String sqlAlter = "ALTER TABLE cursos AUTO_INCREMENT = ?";
                 PreparedStatement pst4 = conn.prepareStatement(sqlAlter);
-                pst4.setInt(1, maxId + 1); // Aseguramos que el próximo valor será mayor
+                pst4.setInt(1, maxId + 1);
                 pst4.executeUpdate();
                 pst4.close();
                 
-                System.out.println("Se ha eliminado correctamente el curso con id = " + id);
-            }else{
-                System.out.println("No se encontro ningun curso con ese correo");
+                
+                System.out.println("Curso con nombre " + nombre + " eliminado correctamente.");
+            } else {
+                System.out.println("No se encontró el curso con el nombre: " + nombre);
             }
             
-            conexion.cerrarConexion();
+            
         }catch(Exception e){
             e.printStackTrace();
         }
+        
+        
     }
     
     
@@ -284,6 +285,25 @@ public class Curso {
             stmt.setInt(2, cursoId);
             
             stmt.executeUpdate();
+            
+            //Reconfiguramos los ids
+            String getMaxIdSql = "SELECT MAX(id_asignacion) FROM asignaciones";
+            PreparedStatement pst3 = conn.prepareStatement(getMaxIdSql);
+            ResultSet rsMax = pst3.executeQuery();
+
+            int maxId = 0;
+            if (rsMax.next()) {
+                maxId = rsMax.getInt(1);
+            }
+            rsMax.close();
+            pst3.close();
+                
+            String sqlAlter = "ALTER TABLE asignaciones AUTO_INCREMENT = ?";
+            PreparedStatement pst4 = conn.prepareStatement(sqlAlter);
+            pst4.setInt(1, maxId + 1); // Aseguramos que el próximo valor será mayor
+            pst4.executeUpdate();
+            pst4.close();
+            
             
             System.out.println("Profesor eliminado del curso");
             
