@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PantallaPrincipalController">
+<AnchorPane id="mainPane" prefHeight="559.0" prefWidth="733.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PantallaPrincipalController">
    <children>
-      <Button fx:id="b_pEstudiantes" layoutX="184.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#ventanaEstudiantes" prefHeight="71.0" prefWidth="233.0" text="GESTIÓN DE ESTUDIANTES">
+      <Button fx:id="b_pEstudiantes" layoutX="250.0" layoutY="198.0" mnemonicParsing="false" onMouseClicked="#ventanaEstudiantes" prefHeight="71.0" prefWidth="233.0" text="GESTIÓN DE ESTUDIANTES">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="b_pCursos" layoutX="184.0" layoutY="281.0" mnemonicParsing="false" onMouseClicked="#ventanaCursos" prefHeight="71.0" prefWidth="233.0" text="GESTIÓN DE CURSOS">
+      <Button fx:id="b_pCursos" layoutX="250.0" layoutY="431.0" mnemonicParsing="false" onMouseClicked="#ventanaCursos" prefHeight="71.0" prefWidth="233.0" text="GESTIÓN DE CURSOS">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="b_pProfesores" layoutX="184.0" layoutY="164.0" mnemonicParsing="false" onMouseClicked="#ventanaProfesores" prefHeight="71.0" prefWidth="233.0" text="GESTIÓN DE PROFESORES">
+      <Button fx:id="b_pProfesores" layoutX="250.0" layoutY="314.0" mnemonicParsing="false" onMouseClicked="#ventanaProfesores" prefHeight="71.0" prefWidth="233.0" text="GESTIÓN DE PROFESORES">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Button>
+      <Label fx:id="l_tituloPrincipal" alignment="CENTER" layoutX="136.0" layoutY="29.0" prefHeight="136.0" prefWidth="462.0" text="CODING ACADEMY" />
    </children>
 </AnchorPane>

@@ -4,7 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Antxon/Documents/NetBeansProjects/ProjectFXML/src/Models/Alumno.java</file>
-            <file>file:/C:/Users/Antxon/Documents/NetBeansProjects/ProjectFXML/src/Controllers/PantallaAlumnosController.java</file>
+            <file>file:/C:/Users/Antxon/Documents/NetBeansProjects/ProjectFXML/src/Models/Curso.java</file>
+            <file>file:/C:/Users/Antxon/Documents/NetBeansProjects/ProjectFXML/src/styles/style.css</file>
+            <file>file:/C:/Users/Antxon/Documents/NetBeansProjects/ProjectFXML/src/Models/Profesor.java</file>
+            <file>file:/C:/Users/Antxon/Documents/NetBeansProjects/ProjectFXML/src/Controllers/PantallaProfesoresController.java</file>
+            <file>file:/C:/Users/Antxon/Documents/NetBeansProjects/ProjectFXML/src/Models/ConexionMySQL.java</file>
         </group>
     </open-files>
 </project-private>

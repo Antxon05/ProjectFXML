@@ -1,0 +1,53 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+
+
+/* Fondo de toda la ventana */
+.root {
+    -fx-background-color: #082740; /* Azul */
+}
+
+/* Estilos para el boton */
+Button {
+    -fx-background-color: #2f4c63;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+/* Efecto hover: cambia el color y aumenta ligeramente el tamaño del boton*/
+Button:hover {
+    -fx-background-color: #6e8495;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+/* Estilos para los labels */
+Label {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+
+/* Estilo para los titulos de las columnas de las tablas */
+.table-view .column-header .label {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+
+/* Estilo para el titulo principal */
+#l_tituloPrincipal{
+    -fx-font-size: 40px ;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+}
+
+

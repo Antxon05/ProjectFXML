@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="777.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PantallaAlumnosController">
+<AnchorPane id="alumnosPane" stylesheets="@../styles/style.css" prefHeight="777.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PantallaAlumnosController">
     <children>
       <Button fx:id="b_inicio" layoutX="25.0" layoutY="23.0" mnemonicParsing="false" onMouseClicked="#volverInicio" prefHeight="30.0" prefWidth="77.0" text="INICIO">
          <font>
